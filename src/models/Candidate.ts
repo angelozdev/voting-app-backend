@@ -31,6 +31,11 @@ const CandidateSchema = new Schema(
       type: Number,
       default: 0,
     },
+
+    avatar: {
+      type: String,
+      require: true,
+    },
   },
   { timestamps: { updatedAt: true, createdAt: true } }
 );
@@ -54,6 +59,9 @@ export class CandidateTypes extends Document {
 
   @Field(() => Int, { defaultValue: 0 })
   votes: number;
+
+  @Field(() => String)
+  avatar: string;
 }
 
 export default model<CandidateTypes>(

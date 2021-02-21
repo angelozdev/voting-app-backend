@@ -21,6 +21,9 @@ class UpdateCandidateFields {
   firstname: string;
 
   @Field(() => String, { nullable: true })
+  avatar: string;
+
+  @Field(() => String, { nullable: true })
   lastname: string;
 
   @Field(() => Int, { nullable: true })
@@ -93,7 +96,7 @@ class CandidateResolver {
 
     if (!candidate) throw new Error(Errors.CANDIDATE_NOT_FOUND);
 
-    const { firstname, lastname, age, votes, slogan } = input;
+    const { firstname, lastname, age, votes, slogan, avatar } = input;
 
     const fields = {
       firstname: firstname || candidate.firstname,
@@ -101,6 +104,7 @@ class CandidateResolver {
       age: age || candidate.age,
       votes: votes || candidate.votes,
       slogan: slogan || candidate.slogan,
+      avatar: avatar || candidate.avatar,
     };
 
     const updatedCandidate = await Candidate.findByIdAndUpdate(id, fields, {
