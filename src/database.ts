@@ -10,6 +10,7 @@ async function connection() {
   const options: ConnectOptions = {
     useNewUrlParser: true,
     useUnifiedTopology: true,
+    useFindAndModify: false,
   };
 
   return connect(URI, options)
