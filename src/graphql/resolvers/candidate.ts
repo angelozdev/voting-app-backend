@@ -26,7 +26,7 @@ class UpdateCandidateFields {
   @Field(() => String, { nullable: true })
   slogan: string;
 
-  @Field(() => Int, { defaultValue: 0, nullable: true })
+  @Field(() => Int, { nullable: true })
   votes: number;
 }
 
@@ -36,7 +36,7 @@ class CandidateResolver {
   /* QUERIES */
   @Query(() => [CandidateTypes])
   async getAllCandidates(): Promise<CandidateTypes[]> {
-    return await Candidate.find({}).limit(20);
+    return await Candidate.find({}).sort({ votes: -1 }).limit(20);
   }
 
   /* Mutations */
