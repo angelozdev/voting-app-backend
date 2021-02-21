@@ -1,9 +1,11 @@
 import {
   Arg,
   Field,
+  ID,
   InputType,
   Int,
   Mutation,
+  ObjectType,
   Query,
   Resolver,
 } from "type-graphql";
@@ -35,6 +37,19 @@ class UpdateCandidateFields {
   votes: number;
 }
 
+/* ********************** ADDITIONAL OBJECT TYPES ************************* */
+@ObjectType()
+class TotalVotes {
+  @Field(() => ID)
+  _id: string;
+
+  @Field(() => Int)
+  totalCandidates: number;
+
+  @Field(() => Int)
+  totalVotes: number;
+}
+
 /* ************************** RESOLVERS ************************** */
 @Resolver()
 class CandidateResolver {
@@ -42,6 +57,19 @@ class CandidateResolver {
   @Query(() => [CandidateTypes])
   async getAllCandidates(): Promise<CandidateTypes[]> {
     return await Candidate.find({}).sort({ votes: -1 }).limit(20);
+  }
+
+  @Query(() => TotalVotes)
+  async getTotalVotes(): Promise<TotalVotes> {
+    return Candidate.aggregate<TotalVotes>([
+      {
+        $group: {
+          _id: { $sum: 1 },
+          totalVotes: { $sum: "$votes" },
+          totalCandidates: { $sum: 1 },
+        },
+      },
+    ]).then((data) => data[0]);
   }
 
   /* Mutations */
