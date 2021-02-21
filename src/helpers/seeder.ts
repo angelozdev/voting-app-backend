@@ -13,7 +13,7 @@ async function seedDB() {
       votes: random.number({ min: 0, max: 10 }),
       age: random.number({ min: 18, max: 90 }),
       slogan: random.words(10),
-      avatar: image.people(500),
+      avatar: image.imageUrl(500, 500, "person", true),
     };
 
     await Candidate.create(newCandidate)
