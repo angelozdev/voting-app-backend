@@ -28,7 +28,7 @@ _You can see the project in production [Voting App](https://voting-app-angelozde
 
 ## Built with
 
-_Technologies used in the frontend.:_
+_Technologies used in the backend:_
 
 -  **Graphql**
 -  **Apollo Server**
