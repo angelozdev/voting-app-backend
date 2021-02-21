@@ -9,6 +9,7 @@ import {
 } from "type-graphql";
 import { Candidate, CandidateTypes } from "../../models";
 import { Errors } from "../../types";
+import { Max, Min } from "class-validator";
 
 /* ***************************** INPUTS ******************************* */
 
@@ -21,12 +22,16 @@ class UpdateCandidateFields {
   lastname: string;
 
   @Field(() => Int, { nullable: true })
+  @Max(100)
+  @Min(18)
   age: number;
 
   @Field(() => String, { nullable: true })
   slogan: string;
 
   @Field(() => Int, { nullable: true })
+  @Max(20)
+  @Min(0)
   votes: number;
 }
 
