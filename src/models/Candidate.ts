@@ -1,39 +1,42 @@
 import { Field, ID, Int, ObjectType } from "type-graphql";
 import { Document, model, Schema } from "mongoose";
 
-const CandidateSchema = new Schema<Candidate>({
-  firstname: {
-    type: String,
-    require: true,
-    trim: true,
-  },
+const CandidateSchema = new Schema(
+  {
+    firstname: {
+      type: String,
+      require: true,
+      trim: true,
+    },
 
-  lastname: {
-    type: String,
-    require: true,
-    trim: true,
-  },
+    lastname: {
+      type: String,
+      require: true,
+      trim: true,
+    },
 
-  age: {
-    type: Number,
-    require: true,
-    trim: true,
-  },
+    age: {
+      type: Number,
+      require: true,
+      trim: true,
+    },
 
-  slogan: {
-    type: String,
-    require: true,
-    trim: true,
-  },
+    slogan: {
+      type: String,
+      require: true,
+      trim: true,
+    },
 
-  votes: {
-    type: Number,
-    default: 0,
+    votes: {
+      type: Number,
+      default: 0,
+    },
   },
-});
+  { timestamps: { updatedAt: true, createdAt: true } }
+);
 
 @ObjectType()
-class Candidate extends Document {
+export class CandidateTypes extends Document {
   @Field(() => ID)
   id: string;
 
@@ -53,4 +56,8 @@ class Candidate extends Document {
   votes: number;
 }
 
-export default model<Candidate>("Candidate", CandidateSchema, "candidates");
+export default model<CandidateTypes>(
+  "Candidate",
+  CandidateSchema,
+  "candidates"
+);
